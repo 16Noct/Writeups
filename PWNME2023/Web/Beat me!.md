@@ -41,7 +41,7 @@ Dès lors que nos points de vie tombent à 0, on constate que plusieurs requête
 
 **→ On peut alors essayer de renvoyer cette requête avec en passant un score différent, supérieur à celui du joueur “Eteck”, afin de valider le challenge :**
 
-Testons avec le corp suivant : `{"score":"1337421","pseudo":"test","signature":-640686249}`
+Testons avec le corps suivant : `{"score":"1337421","pseudo":"test","signature":-640686249}`
 
 Ce à quoi le serveur répond par : 
 
@@ -86,7 +86,7 @@ Posons un **breakpoint** sur la ligne qui nous intéresse :
 
 ![Untitled](./img/Beat%20me!/Untitled%206.png)
 
-Relençons le jeu et observons ce qu’il se passe: Le site se pause à notre breakpoint on observe cela :
+Relançons le jeu et observons ce qu’il se passe: Le site se pause à notre breakpoint on observe cela :
 
 ![Untitled](./img/Beat%20me!/Untitled%207.png)
 
