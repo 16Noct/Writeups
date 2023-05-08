@@ -60,7 +60,7 @@ Keep-Alive: timeout=5
 
 **→ Le serveur n’a pas mit le tableau des scores à jour puisque la signature ne correspondrait pas au score entré, il faudra maintenant trouver un moyen de générer une signature correcte pour le score que l’on souhaiterait rentrer. Pour ce faire, analysons le code.**
 
-1. **Analyse du code** 
+2. **Analyse du code** 
 
 Grâce à l’outil “Réseau” de notre navigateur, on peut retrouver le fichier initiateur de la requête XHR 
 
@@ -94,7 +94,7 @@ Le score est passé en paramètre à une fonction **`_0x3f306f`** chargée de g�
 
 Maintenant, plusieurs solutions s’offrent à nous, nous pouvons éventuellement comprendre le fonctionnement de la fonction **`_0x3f306f`** en analysant le code afin de recalculer nous même la signature, malheureusement celui-ci est obfusqué et difficle à comprendre. Je choisis alors la facilité : puisque le jeu est client-sided, nous pouvons controler l’intégralité des variables présentes dans le code. **Notre solution consistera donc en la modification de la variable passé en paramètre à  `_0x3f306f` en passant un score plus grand que `1337420`, afin que l’appel à cette fonction nous génère une signature valide pour notre score.**
 
-1. **Résolution** 
+3. **Résolution** 
 
 Pour modifier le code javascript que nous reçevons, j’utilise burp afin de l’intercepter et de le modifier. Configurons d’abord Burp afin qu’il capture également les fichiers .js → on se rend alors dans `Proxy > Proxy Settings > Request Interception Rules` et éditer la première ligne :
 
