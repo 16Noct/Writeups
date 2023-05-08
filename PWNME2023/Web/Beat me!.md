@@ -86,7 +86,7 @@ Posons un **breakpoint** sur la ligne qui nous intéresse :
 
 ![Untitled](./img/Beat%20me!/Untitled%206.png)
 
-Relançons le jeu et observons ce qu’il se passe: Le site se pause à notre breakpoint on observe cela :
+Relançons le jeu et observons ce qu’il se passe: Le site se pause à notre breakpoint et on observe ça :
 
 ![Untitled](./img/Beat%20me!/Untitled%207.png)
 
