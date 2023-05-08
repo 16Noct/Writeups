@@ -33,11 +33,11 @@ Dès lors que nos points de vie tombent à 0, on constate que plusieurs requête
 
 `{"score":"0","pseudo":"test","signature":-640686249}`
 
-![Untitled](./img/Beat%20me!%200bdc966ead574b5bb3cda6dc80e03601/Untitled.png)
+![Untitled](./img/Beat%20me!/Untitled.png)
 
 **→ On comprend alors que cette requête a pour but de rentrer notre score dans le tableau des scores.** 
 
-![Untitled](./img/Beat%20me!%200bdc966ead574b5bb3cda6dc80e03601/Untitled%201.png)
+![Untitled](./img/Beat%20me!/Untitled%201.png)
 
 **→ On peut alors essayer de renvoyer cette requête avec en passant un score différent, supérieur à celui du joueur “Eteck”, afin de valider le challenge :**
 
@@ -64,31 +64,31 @@ Keep-Alive: timeout=5
 
 Grâce à l’outil “Réseau” de notre navigateur, on peut retrouver le fichier initiateur de la requête XHR 
 
-![Untitled](./img/Beat%20me!%200bdc966ead574b5bb3cda6dc80e03601/Untitled%202.png)
+![Untitled](./img/Beat%20me!/Untitled%202.png)
 
 **→ Le fichier qui nous intéresse ici est `main[...].js`**
 
 Lorsque l’on clique dessus, cela nous ramène vers la **pile d’éxecution** des fonctions du fichier, qui nous permet de voir à quel endroit du code sont appelés les différentes fonctions, ainsi que l’ordre dans lequel elles sont appellées. En l’analysant, deux choses sautent aux yeux : 
 
-![Untitled](./img/Beat%20me!%200bdc966ead574b5bb3cda6dc80e03601/Untitled%203.png)
+![Untitled](./img/Beat%20me!/Untitled%203.png)
 
 l’appel de la fonction “ajax” suivi de la fonction “send”, qui correspondent à l’initiation de la requête XHR. Regardons maintenant les fonctions appellées juste avant : 
 
-![Untitled](./img/Beat%20me!%200bdc966ead574b5bb3cda6dc80e03601/Untitled%204.png)
+![Untitled](./img/Beat%20me!/Untitled%204.png)
 
 en cliquant à droite, cela nous ramène directement sur l’endroit du code ou les fonctions sont appellées. Prenons la fonction appellée juste avant “ajax” → 
 
-![Untitled](./img/Beat%20me!%200bdc966ead574b5bb3cda6dc80e03601/Untitled%205.png)
+![Untitled](./img/Beat%20me!/Untitled%205.png)
 
 Tout de suite, on constate que le code que nous avons devant les yeux s’apparente au corp ( en rouge ) et à l’entête ( en vert ) de la requête d’insertion des scores vue précédemment.
 
 Posons un **breakpoint** sur la ligne qui nous intéresse :
 
-![Untitled](./img/Beat%20me!%200bdc966ead574b5bb3cda6dc80e03601/Untitled%206.png)
+![Untitled](./img/Beat%20me!/Untitled%206.png)
 
 Relençons le jeu et observons ce qu’il se passe: Le site se pause à notre breakpoint on observe cela :
 
-![Untitled](./img/Beat%20me!%200bdc966ead574b5bb3cda6dc80e03601/Untitled%207.png)
+![Untitled](./img/Beat%20me!/Untitled%207.png)
 
 Le score est passé en paramètre à une fonction **`_0x3f306f`** chargée de générer la signature. 
 
@@ -98,27 +98,27 @@ Maintenant, plusieurs solutions s’offrent à nous, nous pouvons éventuellemen
 
 Pour modifier le code javascript que nous reçevons, j’utilise burp afin de l’intercepter et de le modifier. Configurons d’abord Burp afin qu’il capture également les fichiers .js → on se rend alors dans `Proxy > Proxy Settings > Request Interception Rules` et éditer la première ligne :
 
-![Untitled](./img/Beat%20me!%200bdc966ead574b5bb3cda6dc80e03601/Untitled%208.png)
+![Untitled](./img/Beat%20me!/Untitled%208.png)
 
 on supprime l’extension js de la liste : 
 
-![Untitled](./img/Beat%20me!%200bdc966ead574b5bb3cda6dc80e03601/Untitled%209.png)
+![Untitled](./img/Beat%20me!/Untitled%209.png)
 
 **→ On se rend maintenant sur le site, et on intercèpte le fichier `main[…].js`**
 
-![Untitled](./img/Beat%20me!%200bdc966ead574b5bb3cda6dc80e03601/Untitled%2010.png)
+![Untitled](./img/Beat%20me!/Untitled%2010.png)
 
 **→ On va intercepter la réponse à la requête, afin de pouvoir modifier le code reçu par la suite.** 
 
-![Untitled](./img/Beat%20me!%200bdc966ead574b5bb3cda6dc80e03601/Untitled%2011.png)
+![Untitled](./img/Beat%20me!/Untitled%2011.png)
 
 Après avoir Forward la requête, on reçoit la réponse et on cherche dans celle-ci l’appel à la fonction **`_0x3f306f`** dont on souhaite modifier le paramètre
 
-![Untitled](./img/Beat%20me!%200bdc966ead574b5bb3cda6dc80e03601/Untitled%2012.png)
+![Untitled](./img/Beat%20me!/Untitled%2012.png)
 
 On modifie alors le paramètre en rentrant directement une valeur supérieure à 1337420 : 
 
-![Untitled](./img/Beat%20me!%200bdc966ead574b5bb3cda6dc80e03601/Untitled%2013.png)
+![Untitled](./img/Beat%20me!/Untitled%2013.png)
 
 → Puis on forward et on lance le jeu. On joue jusqu’à atteindre la requête de mise à jour des scores, on l’intercepte et on remarque que le corps de notre requête, toujours pour un score de 0, a changé : `{score: "0", pseudo: "test", signature: -1691900128}` Vous l’aurez donc compris, nous venons de récupérer la signature pour un score de **`999999999`**
 
